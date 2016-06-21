@@ -30,7 +30,7 @@ public class UserController {
     @RequestMapping("/showUser")
     @ResponseBody
     public User toIndex(String id) {
-        User user = new User();
+        User user;
         user = this.userService.getUserById(Integer.parseInt(id));
         logger.error("[info message]");
         return user;

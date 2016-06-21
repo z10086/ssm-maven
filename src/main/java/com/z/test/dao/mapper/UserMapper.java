@@ -15,4 +15,6 @@ import javax.inject.Named;
 @Named("userMapper")
 public interface UserMapper {
         User getUserById(int id);
+
+        int addUser(User user);
 }
