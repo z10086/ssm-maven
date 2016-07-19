@@ -5,6 +5,5 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="classpath:ehcache.xml"></bean>
-    <bean id="cityEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" p:name="cityEhCache" p:cacheManager-ref="cacheManager" />
-    <bean id="areaEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" p:name="areaEhCache" p:cacheManager-ref="cacheManager" />
+    <bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" p:name="ehCache" p:cacheManager-ref="cacheManager" />
 </beans>
