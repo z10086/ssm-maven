@@ -1,7 +1,15 @@
 package com.z.test.shiro.realm;
 
+import com.z.test.pojo.User;
+import com.z.test.service.IUserService;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author zcq
@@ -9,24 +17,71 @@ import org.apache.shiro.realm.Realm;
  * @Description: TODO()
  * @date 2016/7/21 17:22
  */
-public class testRealm implements Realm{
+public class testRealm extends AuthorizingRealm {
+
+    @Autowired
+    private IUserService userService;
 
     @Override
-    public String getName() {
-        return "a"; //realm name 为 “a”
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        String username = (String)principals.getPrimaryPrincipal();
+
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        authorizationInfo.setRoles(userService.findRoles(username));
+        authorizationInfo.setStringPermissions(userService.findPermissions(username));
+        return authorizationInfo;
     }
 
     @Override
-    public boolean supports(AuthenticationToken token) {
-        return token instanceof UsernamePasswordToken;
-    }
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-    @Override
-    public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        return new SimpleAuthenticationInfo(
-                "zhang", //身份 字符串类型
-                "123",   //凭据
-                getName() //Realm Name
+        String username = (String)token.getPrincipal();
+
+        User user = userService.findByUsername(username);
+
+        if(user == null) {
+            throw new UnknownAccountException();//没找到帐号
+        }
+
+//        if(Boolean.TRUE.equals(user.getLocked())) {
+//            throw new LockedAccountException(); //帐号锁定
+//        }
+
+        //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
+                user.getUsername(), //用户名
+                user.getPassword(), //密码
+                ByteSource.Util.bytes("salt"),//salt=username+salt
+                getName()  //realm name
         );
+        return authenticationInfo;
+    }
+
+    @Override
+    public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+        super.clearCachedAuthorizationInfo(principals);
+    }
+
+    @Override
+    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+        super.clearCachedAuthenticationInfo(principals);
+    }
+
+    @Override
+    public void clearCache(PrincipalCollection principals) {
+        super.clearCache(principals);
+    }
+
+    public void clearAllCachedAuthorizationInfo() {
+        getAuthorizationCache().clear();
+    }
+
+    public void clearAllCachedAuthenticationInfo() {
+        getAuthenticationCache().clear();
+    }
+
+    public void clearAllCache() {
+        clearAllCachedAuthenticationInfo();
+        clearAllCachedAuthorizationInfo();
     }
 }

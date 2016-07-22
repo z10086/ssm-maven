@@ -16,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     static private Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -28,11 +30,21 @@ public class UserController {
     private IUserService userService;
 
     @RequestMapping("/showUser")
-    @ResponseBody
     public User toIndex(String id) {
         User user;
         user = this.userService.getUserById(Integer.parseInt(id));
         logger.error("[info message]");
         return user;
     }
+
+    @RequestMapping(value ="/login" , method = RequestMethod.POST)
+    public User Login(User user) {
+        int a = this.userService.login(user);
+        logger.error("[info message]");
+        return user;
+    }
+
+
+
+
 }
