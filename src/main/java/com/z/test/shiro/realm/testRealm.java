@@ -11,6 +11,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author zcq
  * @ClassName:
@@ -24,12 +27,26 @@ public class testRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = (String)principals.getPrimaryPrincipal();
+//        String username = (String)principals.getPrimaryPrincipal();
+//
+//        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+//        authorizationInfo.setRoles(userService.findRoles(username));
+//        authorizationInfo.setStringPermissions(userService.findPermissions(username));
+//        return authorizationInfo;
 
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(userService.findRoles(username));
-        authorizationInfo.setStringPermissions(userService.findPermissions(username));
-        return authorizationInfo;
+        List<String> permissions = new ArrayList<String>();
+        permissions.add("user:create");//用户的创建权限
+        permissions.add("user:update");//用户的修改
+        permissions.add("item:add");//商品的添加权限
+        //....等等权限
+
+        //查到权限数据，返回
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+
+        //将List里面的权限填充进去
+        simpleAuthorizationInfo.addStringPermissions(permissions);
+
+        return simpleAuthorizationInfo;
     }
 
     @Override
@@ -51,7 +68,7 @@ public class testRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUsername(), //用户名
                 user.getPassword(), //密码
-                ByteSource.Util.bytes("salt"),//salt=username+salt
+                //ByteSource.Util.bytes("salt"),//salt=username+salt
                 getName()  //realm name
         );
         return authenticationInfo;
