@@ -17,10 +17,6 @@ public class UserDaoImpl implements IUserdao {
     @Override
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
     public User getUserById(int id) {
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword("password");
-        userMapper.addUser(user);
         return  userMapper.getUserById(id);
     }
 }

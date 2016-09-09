@@ -41,12 +41,11 @@ public class UserServiceImpl implements IUserService {
     public Set<String> findRoles(String username) {
         User user = findByUsername(username);
         if (user == null) {
-            return Collections.EMPTY_SET;
+            return null;
         }
         Set<String> roles = new HashSet<String>();
-        roles.add("rolesa");
+        roles.add("roles");
         return roles;
-        //return roleService.findRoles(user.getRoleIds().toArray(new Long[0]));
     }
 
     /**
@@ -58,12 +57,11 @@ public class UserServiceImpl implements IUserService {
     public Set<String> findPermissions(String username) {
         User user = findByUsername(username);
         if (user == null) {
-            return Collections.EMPTY_SET;
+            return null;
         }
         Set<String> permissions = new HashSet<String>();
         permissions.add("Permissionsb");
         return permissions;
-        //return roleService.findPermissions(user.getRoleIds().toArray(new Long[0]));
     }
 
 

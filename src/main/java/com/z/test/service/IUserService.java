@@ -6,9 +6,10 @@ import com.z.test.pojo.User;
 import java.util.Set;
 
 public interface IUserService {
+
      User getUserById(int userId);
 
-    public User findByUsername(String username);
+     User findByUsername(String username);
 
     /**
      * 根据用户名查找其角色
@@ -22,7 +23,7 @@ public interface IUserService {
      * @param username
      * @return
      */
-    public Set<String> findPermissions(String username);
+     Set<String> findPermissions(String username);
 
     /**
      * 登陆

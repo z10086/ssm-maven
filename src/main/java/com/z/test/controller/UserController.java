@@ -46,9 +46,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView Login(User user,HttpSession session) {
-
-        ModelAndView modelView = new ModelAndView();
+    public String Login(User user, HttpSession session) {
         /*就是代表当前的用户。*/
         Subject currentUser = SecurityUtils.getSubject();
         //获取基于用户名和密码的令牌
@@ -67,21 +65,15 @@ public class UserController {
             // 回调doGetAuthenticationInfo，进行认证
             currentUser.login(token);
         } catch (AuthenticationException e) {
-            modelView.addObject("message", "login errors");
-            modelView.setViewName("/login");
             e.printStackTrace();
-            return modelView;
+            return e.getMessage();
         }
         //验证是否通过
         if (currentUser.isAuthenticated()) {
-            user.setUsername("张三");
-            session.setAttribute("userinfo", user);
-            modelView.setViewName("/main");
+            return token.toString();
         } else {
-            modelView.addObject("message", "login errors");
-            modelView.setViewName("/login");
+            return "";
         }
-        return modelView;
     }
 
     @RequiresPermissions("user:create")

@@ -27,24 +27,20 @@ public class testRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-//        String username = (String)principals.getPrimaryPrincipal();
-//
-//        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-//        authorizationInfo.setRoles(userService.findRoles(username));
-//        authorizationInfo.setStringPermissions(userService.findPermissions(username));
-//        return authorizationInfo;
+        String username = (String)principals.getPrimaryPrincipal();
 
-        List<String> permissions = new ArrayList<String>();
-        permissions.add("user:create");//用户的创建权限
-        permissions.add("user:update");//用户的修改
-        permissions.add("item:add");//商品的添加权限
-        //....等等权限
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        authorizationInfo.setRoles(userService.findRoles(username));
+        authorizationInfo.setStringPermissions(userService.findPermissions(username));
+
 
         //查到权限数据，返回
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 
         //将List里面的权限填充进去
-        simpleAuthorizationInfo.addStringPermissions(permissions);
+        //simpleAuthorizationInfo.addStringPermissions(permissions);
+        simpleAuthorizationInfo.setRoles(userService.findRoles(username));
+        simpleAuthorizationInfo.setStringPermissions(userService.findPermissions(username));
 
         return simpleAuthorizationInfo;
     }
