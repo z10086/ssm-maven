@@ -31,15 +31,23 @@
         <property name="realm" ref="myRealm"/>
         <!-- By default the servlet container sessions will be used.  Uncomment this line
              to use shiro's native sessions (see the JavaDoc for more): -->
-         <property name="sessionMode" value="native"/>
+         <!--<property name="sessionMode" value="native"/>-->
+        <property name="cacheManager" ref="cacheManager"/>
+
     </bean>
+
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
     <bean id="myRealm" class="com.z.test.shiro.realm.testRealm">
-
+        <property name="cachingEnabled" value="true"/>
+        <!--<property name="cacheManager" ref="shiroEhcacheManager" />-->
     </bean>
 
+    <!-- 缓存管理器 -->
+    <bean id="cacheManager" class="com.z.test.shiro.spring.SpringCacheManagerWrapper">
+        <property name="cacheManager" ref="springCacheManager"/>
+    </bean>
 </beans>

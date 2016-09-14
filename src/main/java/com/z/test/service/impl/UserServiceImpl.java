@@ -60,7 +60,7 @@ public class UserServiceImpl implements IUserService {
             return null;
         }
         Set<String> permissions = new HashSet<String>();
-        permissions.add("Permissionsb");
+        permissions.add("user:create");
         return permissions;
     }
 
