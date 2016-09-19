@@ -31,8 +31,10 @@
         <property name="realm" ref="myRealm"/>
         <!-- By default the servlet container sessions will be used.  Uncomment this line
              to use shiro's native sessions (see the JavaDoc for more): -->
-         <!--<property name="sessionMode" value="native"/>-->
-        <property name="cacheManager" ref="cacheManager"/>
+         <property name="sessionMode" value="native"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+        <!--<property name="authorizationCacheName" value="authorizationCache"/>-->
+
 
     </bean>
 
@@ -43,11 +45,13 @@
     <!-- security datasource: -->
     <bean id="myRealm" class="com.z.test.shiro.realm.testRealm">
         <property name="cachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+
         <!--<property name="cacheManager" ref="shiroEhcacheManager" />-->
     </bean>
 
     <!-- 缓存管理器 -->
-    <bean id="cacheManager" class="com.z.test.shiro.spring.SpringCacheManagerWrapper">
-        <property name="cacheManager" ref="springCacheManager"/>
+    <bean id="shiroCacheManager" class="com.z.test.shiro.spring.SpringCacheManagerWrapper">
+        <property name="cacheManager" ref="cacheManager"/>
     </bean>
 </beans>

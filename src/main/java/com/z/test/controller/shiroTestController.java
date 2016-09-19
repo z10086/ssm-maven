@@ -15,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/shiro")
 public class shiroTestController {
     static private Logger logger = LoggerFactory.getLogger(shiroTestController.class);
+
 
 
     @RequiresPermissions("user:create")
