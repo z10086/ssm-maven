@@ -2,6 +2,8 @@ package com.z.test.dao;
 
 import com.z.test.pojo.User;
 
+import java.util.Set;
+
 /**
  * @author zcq
  * @ClassName:
@@ -9,5 +11,6 @@ import com.z.test.pojo.User;
  * @date 2016/6/16 16:58
  */
 public interface IUserdao {
-     User getUserById(int userId);
+     User getUserById(Long userId);
+
 }

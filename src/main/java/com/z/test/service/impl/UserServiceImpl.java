@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService {
     private IUserdao userDao;
 
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(Long userId) {
         return userDao.getUserById(userId);
     }
 
@@ -28,41 +28,11 @@ public class UserServiceImpl implements IUserService {
      * @param username
      * @return
      */
+    @Override
     public User findByUsername(String username) {
-        return userDao.getUserById(3);
+        return userDao.getUserById(3L);
     }
 
-    /**
-     * 根据用户名查找其角色
-     *
-     * @param username
-     * @return
-     */
-    public Set<String> findRoles(String username) {
-        User user = findByUsername(username);
-        if (user == null) {
-            return null;
-        }
-        Set<String> roles = new HashSet<String>();
-        roles.add("roles");
-        return roles;
-    }
-
-    /**
-     * 根据用户名查找其权限
-     *
-     * @param username
-     * @return
-     */
-    public Set<String> findPermissions(String username) {
-        User user = findByUsername(username);
-        if (user == null) {
-            return null;
-        }
-        Set<String> permissions = new HashSet<String>();
-        permissions.add("user:create");
-        return permissions;
-    }
 
 
     @Override

@@ -4,6 +4,7 @@ import com.z.test.pojo.User;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Named;
+import java.util.Set;
 
 /**
  * @author zcq
@@ -14,7 +15,7 @@ import javax.inject.Named;
 
 @Named("userMapper")
 public interface UserMapper {
-        User getUserById(int id);
+        User getUserById(Long id);
 
         int addUser(User user);
 }

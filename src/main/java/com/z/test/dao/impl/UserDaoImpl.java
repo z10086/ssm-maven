@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+
 
 @Repository("userDao")
 public class UserDaoImpl implements IUserdao {
@@ -16,7 +18,8 @@ public class UserDaoImpl implements IUserdao {
 
     @Override
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return  userMapper.getUserById(id);
     }
+
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.z.test.dao.mapper.RoleMapper">
+
+    <select id="findRoles" parameterType="Long" resultType="String">
+        SELECT role_value FROM  t_role WHERE id IN  (SELECT t_role_id FROM t_user_role WHERE t_user_id = #{userId})
+    </select>
+
+    <select id="findPermissions" parameterType="Long" resultType="String">
+        SELECT   permission FROM    t_permission WHERE id IN
+            (SELECT t_permission_id FROM  t_role_permission WHERE t_role_id IN
+                (SELECT role_value FROM  t_role WHERE id IN  (SELECT t_role_id FROM t_user_role WHERE t_user_id = #{userId})
+            )
+        )
+    </select>
+
+
+</mapper>

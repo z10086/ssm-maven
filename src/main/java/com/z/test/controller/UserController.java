@@ -40,7 +40,7 @@ public class UserController {
     @RequestMapping("/showUser")
     public User toIndex(String id) {
         User user;
-        user = this.userService.getUserById(Integer.parseInt(id));
+        user = this.userService.getUserById(Long.parseLong(id));
         logger.error("[info message]");
         return user;
     }

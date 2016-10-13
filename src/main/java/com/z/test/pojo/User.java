@@ -4,7 +4,7 @@ package com.z.test.pojo;
  * Created by Administrator on 2015/11/17.
  */
 public class User {
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
 
@@ -16,11 +16,11 @@ public class User {
         this.username = username;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

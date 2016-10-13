@@ -1,6 +1,7 @@
 package com.z.test.shiro.realm;
 
 import com.z.test.pojo.User;
+import com.z.test.service.IRoleService;
 import com.z.test.service.IUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -21,13 +22,16 @@ public class testRealm extends AuthorizingRealm {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IRoleService roleService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String)principals.getPrimaryPrincipal();
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(userService.findRoles(username));
-        authorizationInfo.setStringPermissions(userService.findPermissions(username));
+        authorizationInfo.setRoles(roleService.findRoles(username));
+        authorizationInfo.setStringPermissions(roleService.findPermissions(username));
 
 
         //查到权限数据，返回
@@ -35,8 +39,8 @@ public class testRealm extends AuthorizingRealm {
 
         //将List里面的权限填充进去
         //simpleAuthorizationInfo.addStringPermissions(permissions);
-        simpleAuthorizationInfo.setRoles(userService.findRoles(username));
-        simpleAuthorizationInfo.setStringPermissions(userService.findPermissions(username));
+        simpleAuthorizationInfo.setRoles(roleService.findRoles(username));
+        simpleAuthorizationInfo.setStringPermissions(roleService.findPermissions(username));
 
         return simpleAuthorizationInfo;
     }
