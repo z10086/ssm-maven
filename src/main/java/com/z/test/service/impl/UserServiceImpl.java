@@ -17,7 +17,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserdao userDao;
 
-    @Override
+
     public User getUserById(Long userId) {
         return userDao.getUserById(userId);
     }
@@ -28,14 +28,13 @@ public class UserServiceImpl implements IUserService {
      * @param username
      * @return
      */
-    @Override
     public User findByUsername(String username) {
         return userDao.getUserById(3L);
     }
 
 
 
-    @Override
+
     public int login(User user) {
         User user1 = userDao.getUserById(user.getId());
         return 0;
