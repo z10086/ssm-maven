@@ -17,5 +17,7 @@ import java.util.Set;
 public interface UserMapper {
         User getUserById(Long id);
 
+        User getUserByName(String userName);
+
         int addUser(User user);
 }

@@ -13,4 +13,6 @@ import java.util.Set;
 public interface IUserdao {
      User getUserById(Long userId);
 
+     User getUserByName(String userName);
+
 }

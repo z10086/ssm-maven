@@ -29,7 +29,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public User findByUsername(String username) {
-        return userDao.getUserById(3L);
+        return userDao.getUserByName(username);
     }
 
 

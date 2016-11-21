@@ -1,15 +1,12 @@
 package com.z.test.service.impl;
 
 import com.z.test.dao.IRoledao;
-import com.z.test.dao.IUserdao;
 import com.z.test.pojo.User;
 import com.z.test.service.IRoleService;
 import com.z.test.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -33,7 +30,7 @@ public class RoleServiceImpl implements IRoleService {
      * 根据用户名查找其角色
      *
      * @param username 用户名
-     * @return 角色
+     * @return 角色 roles
      */
     public Set<String> findRoles(String username) {
         User user = userService.findByUsername(username);
@@ -50,7 +47,7 @@ public class RoleServiceImpl implements IRoleService {
      * 根据用户名查找其权限
      *
      * @param username 用户名
-     * @return
+     * @return permissions
      */
     public Set<String> findPermissions(String username) {
         User user = userService.findByUsername(username);
