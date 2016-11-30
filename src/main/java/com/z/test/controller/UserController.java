@@ -22,10 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -53,8 +50,7 @@ public class UserController {
         //这里的token大家叫他令牌，也就相当于一张表格，你要去验证，你就得填个表，里面写好用户名密码，交给公安局的同志给你验证。
         UsernamePasswordToken token = new UsernamePasswordToken(
                 user.getUsername(), user.getPassword());
-        /*UsernamePasswordToken token = new UsernamePasswordToken(
-                user.getUserName(), user.getPassword());*/
+
 //      但是，“已记住”和“已认证”是有区别的：
 //      已记住的用户仅仅是非匿名用户，你可以通过subject.getPrincipals()获取用户信息。但是它并非是完全认证通过的用户，当你访问需要认证用户的功能时，你仍然需要重新提交认证信息。
 //      这一区别可以参考亚马逊网站，网站会默认记住登录的用户，再次访问网站时，对于非敏感的页面功能，页面上会显示记住的用户信息，但是当你访问网站账户信息时仍然需要再次进行登录认证。
@@ -70,7 +66,7 @@ public class UserController {
         }
         //验证是否通过
         if (currentUser.isAuthenticated()) {
-            return token.toString();
+            return "ok.";
         } else {
             return "";
         }
@@ -82,6 +78,4 @@ public class UserController {
         System.out.println("success");
         return "0";
     }
-
-
 }

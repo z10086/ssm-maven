@@ -9,6 +9,7 @@
             <value>
                 # some example chain definitions:
                 /user/login = anon
+                /test/** = anon
                 /user/authc = anon
                 /admin/** = authc, roles[admin]
                 /docs/** = authc, perms[document:read]
@@ -31,7 +32,7 @@
         <property name="realm" ref="myRealm"/>
         <!-- By default the servlet container sessions will be used.  Uncomment this line
              to use shiro's native sessions (see the JavaDoc for more): -->
-         <property name="sessionMode" value="native"/>
+         <!--<property name="sessionMode" value="native"/>-->
         <property name="cacheManager" ref="shiroCacheManager"/>
         <!--<property name="authorizationCacheName" value="authorizationCache"/>-->
 
@@ -46,9 +47,18 @@
     <bean id="myRealm" class="com.z.test.shiro.realm.testRealm">
         <property name="cachingEnabled" value="true"/>
         <property name="authorizationCacheName" value="authorizationCache"/>
-
-        <!--<property name="cacheManager" ref="shiroEhcacheManager" />-->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!--   true means hex encoded, false means base64 encoded -->
+                <!--<property name="storedCredentialsHexEncoded" value="true"/>-->
+                <!-- 迭代次数 -->
+                <property name="hashIterations" value="1" />
+            </bean>
+        </property>
     </bean>
+
+
 
     <!-- 缓存管理器 -->
     <bean id="shiroCacheManager" class="com.z.test.shiro.spring.SpringCacheManagerWrapper">

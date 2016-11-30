@@ -6,8 +6,11 @@ import com.z.test.service.IUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.Sha512Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -24,6 +27,11 @@ public class testRealm extends AuthorizingRealm {
 
     @Autowired
     private IRoleService roleService;
+
+    @Override
+    public String getName() {
+        return "a"; //realm name 为 “a”
+    }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -64,9 +72,11 @@ public class testRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getUsername(), //用户名
                 user.getPassword(), //密码
-                //ByteSource.Util.bytes("salt"),//salt=username+salt
+                ByteSource.Util.bytes("salt"),//salt=username+salt
                 getName()  //realm name
         );
+
+        //String md5 = new Md5Hash("1111", "salt").toString();
         return authenticationInfo;
     }
 
