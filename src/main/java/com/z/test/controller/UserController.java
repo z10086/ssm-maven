@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String Login(User user, HttpSession session) {
+    public String Login(@RequestBody User user, HttpSession session) {
         /*就是代表当前的用户。*/
         Subject currentUser = SecurityUtils.getSubject();
         //获取基于用户名和密码的令牌
