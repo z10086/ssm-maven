@@ -29,7 +29,7 @@ CREATE TABLE `t_permission` (
   `position` int(10) DEFAULT NULL COMMENT '菜单顺序',
   `lev` int(11) DEFAULT NULL COMMENT '0: 功能权限,非0:菜单权限|1:1级菜单  2:2级菜单',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_permission` */
 
@@ -37,7 +37,7 @@ insert  into `t_permission`(`id`,`pid`,`name`,`permission`,`value`,`position`,`l
 (1,0,'系统管理*','','',1,1),
 (2,0,'公告管理','','',2,1),
 (3,0,'首页管理*','','',2,1),
-(4,0,'项目管理','','',4,1),
+(4,0,'项目管理','user:create','',4,1),
 (5,1,'菜单管理*','system:menu','common/s.do?statement=menu_SpecSql.menuList&tourl=ass/basicmanage/menu/menuList',1,2),
 (6,1,'角色管理*','system:role','rolePermission/init.do',1,2),
 (7,1,'机构用户管理*','system:user','common/s.do?statement=userManage_SpecSql.getUserRelated&tourl=ass/basicmanage/organization_n&tOrganizationId=1',7,2),
@@ -46,7 +46,7 @@ insert  into `t_permission`(`id`,`pid`,`name`,`permission`,`value`,`position`,`l
 (10,2,'公告权限3','gonggao:3','/user/add10/**',10,2),
 (11,3,'文章管理*','homepage:1','common/s.do?statement=article_SpecSql.articleList&tourl=ass/article/articleList',1,2),
 (12,3,'首页权限2','homepage:2','user/add12/**',12,2),
-(13,4,'项目权限1','project1','/user/add13/**',13,2),
+(13,4,'项目权限1','project:1','/user/add13/**',13,2),
 (28,0,'工作流程*','','',2,1),
 (29,28,'流程申请','workflow:apply','common/s.do?',1,2),
 (30,28,'我发起的工作*','workflow:myapply','common/s.do?statement=workFlow_SpecSql.myApplyList&tourl=ass/workflow/myApplyList_n',1,2),
@@ -55,8 +55,8 @@ insert  into `t_permission`(`id`,`pid`,`name`,`permission`,`value`,`position`,`l
 (33,2,'我结束的工作2','workflow:finish','common/s.do?22',4,2),
 (34,28,'休假信息汇总','workflow:totaltravels','common/s.do?',6,2),
 (35,28,'出差信息汇总','workflow:totalvacations','common/s.do?',7,2),
-(38,4,'testDwr','index:testdwr','/testDwr.jsp',7,2),
-(39,0,'aer',NULL,'',9,1);
+(38,4,'testDwr',NULL,'/testDwr.jsp',7,2),
+(40,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `t_role` */
 
@@ -76,8 +76,8 @@ CREATE TABLE `t_role` (
 /*Data for the table `t_role` */
 
 insert  into `t_role`(`id`,`name`,`role_value`,`make_time`,`operator`,`modify_time`,`modify_operator`) values 
-(42,'只有神','',1429495858,'admin',1434621464,'admin'),
-(49,'采购员34','',1430141042,'000004N',1432816562,'admin'),
+(1,'只有神','admin',1429495858,'admin',1434621464,'admin'),
+(49,'采购员34','user',1430141042,'000004N',1432816562,'admin'),
 (51,'啊啊啊飞飞3','',1430294416,'000004N',1432816573,'admin'),
 (54,'超级管理员','',1432817129,'admin',NULL,NULL),
 (55,'testerole2','',1432821061,'admin',1433943547,'admin');
@@ -163,8 +163,8 @@ CREATE TABLE `t_user_role` (
 /*Data for the table `t_user_role` */
 
 insert  into `t_user_role`(`id`,`t_user_id`,`t_role_id`,`make_time`,`operator`,`modify_time`,`modify_operator`) values 
-(338,2,54,NULL,NULL,NULL,NULL),
-(339,2,49,NULL,NULL,NULL,NULL),
+(338,3,1,NULL,NULL,NULL,NULL),
+(339,3,49,NULL,NULL,NULL,NULL),
 (340,80,42,NULL,NULL,NULL,NULL),
 (341,1,42,NULL,NULL,NULL,NULL),
 (342,27,49,NULL,NULL,NULL,NULL);
@@ -175,18 +175,19 @@ DROP TABLE IF EXISTS `t_users`;
 
 CREATE TABLE `t_users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) DEFAULT NULL,
-  `password` varchar(64) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
 
 /*Data for the table `t_users` */
 
 insert  into `t_users`(`id`,`username`,`password`) values 
-(1,'11','1111'),
-(32,'test','password'),
-(35,'test','password'),
-(36,'test','password');
+(1,'11','6b1f007f2212704355de3927c089498f'),
+(3,'test1',NULL),
+(87,'test14','test14pwd'),
+(88,'test14','test14pwd'),
+(90,'test14','test14pwd');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
