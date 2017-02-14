@@ -17,7 +17,6 @@ public class UserDaoImpl implements IUserdao {
     UserMapper userMapper;
 
     @Override
-    @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
     public User getUserById(Long id) {
         return  userMapper.getUserById(id);
     }
@@ -25,6 +24,16 @@ public class UserDaoImpl implements IUserdao {
     @Override
     public User getUserByName(String userName) {
         return  userMapper.getUserByName(userName);
+    }
+
+    @Override
+    public Integer addUser(User user) {
+        return  userMapper.addUser(user);
+    }
+
+    @Override
+    public void throwExp() {
+        throw new RuntimeException("抛出异常测试回滚");
     }
 
 }

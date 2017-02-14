@@ -48,8 +48,8 @@ public class UserController {
         Subject currentUser = SecurityUtils.getSubject();
         //获取基于用户名和密码的令牌
         //这里的token大家叫他令牌，也就相当于一张表格，你要去验证，你就得填个表，里面写好用户名密码，交给公安局的同志给你验证。
-        UsernamePasswordToken token = new UsernamePasswordToken(
-                user.getUsername(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+
 
 //      但是，“已记住”和“已认证”是有区别的：
 //      已记住的用户仅仅是非匿名用户，你可以通过subject.getPrincipals()获取用户信息。但是它并非是完全认证通过的用户，当你访问需要认证用户的功能时，你仍然需要重新提交认证信息。

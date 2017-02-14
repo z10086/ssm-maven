@@ -15,4 +15,8 @@ public interface IUserdao {
 
      User getUserByName(String userName);
 
+     Integer addUser(User user);
+
+     void throwExp();
+
 }
