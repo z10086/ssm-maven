@@ -22,6 +22,10 @@ public class UserServiceImpl implements IUserService {
         return userDao.getUserById(userId);
     }
 
+    public Integer addUser(User user) {
+        return userDao.addUser(user);
+    }
+
     /**
      * 根据用户名查找用户
      *
