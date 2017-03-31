@@ -178,7 +178,7 @@ CREATE TABLE `t_users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
 
 /*Data for the table `t_users` */
 
@@ -187,7 +187,9 @@ insert  into `t_users`(`id`,`username`,`password`) values
 (3,'test1',NULL),
 (87,'test14','test14pwd'),
 (88,'test14','test14pwd'),
-(90,'test14','test14pwd');
+(90,'test14','test14pwd'),
+(92,'222222222','1111111111'),
+(93,'username','password');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
