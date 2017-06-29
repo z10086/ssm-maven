@@ -10,6 +10,9 @@
                 # some example chain definitions:
                 /user/login = anon
                 /test/** = anon
+                /login.jsp = anon
+                /socketServer = anon
+                /socketServer/** = anon
                 /user/authc = anon
                 /admin/** = authc, roles[admin]
                 /docs/** = authc, perms[document:read]
